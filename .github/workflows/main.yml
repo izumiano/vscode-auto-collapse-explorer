@@ -41,7 +41,6 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           pattern: vscode-auto-collapse-explorer-*
-      - run: rename 's/(.+).vsix/$1-Linux.vsix/' vscode-auto-collapse-explorer-*/*
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
         with:
