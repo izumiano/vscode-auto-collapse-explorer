@@ -43,6 +43,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            package/vscode-auto-collapse-explorer-*/*
+            vscode-auto-collapse-explorer-*/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
