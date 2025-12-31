@@ -24,7 +24,7 @@ jobs:
       #   if: runner.os == 'Linux'
       # - run: npm test
       #   if: runner.os != 'Linux'
-      - run: npm run create-package
+      - run: npm run create-package ${{ runner.os }}
       - uses: actions/upload-artifact@v4
         with:
           # Name of the artifact to upload.
@@ -41,7 +41,7 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           pattern: vscode-auto-collapse-explorer-*
-      - run: ls -F
+      - run: rename 's/(.+).vsix/$1-Linux.vsix/' vscode-auto-collapse-explorer-*/*
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
         with:
