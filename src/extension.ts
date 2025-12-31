@@ -1,6 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 
-import { commands, ExtensionContext, TextEditor, window } from 'vscode';
+import {
+  commands,
+  type ExtensionContext,
+  type TextEditor,
+  window,
+} from 'vscode';
 
 // Import the module and reference it with the alias vscode in your code below
 const COLLAPSE = 'workbench.files.action.collapseExplorerFolders';
