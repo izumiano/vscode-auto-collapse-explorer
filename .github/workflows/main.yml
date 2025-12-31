@@ -1,10 +1,7 @@
 on:
   push:
-    branches:
-      - master
-  release:
-    types:
-      - created
+    tags:
+      - "v*"
 
 jobs:
   build:
@@ -14,18 +11,36 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 22.x
       - run: npm install
       - run: xvfb-run -a npm test
         if: runner.os == 'Linux'
       - run: npm test
         if: runner.os != 'Linux'
-      - name: Publish
-        if: success() && startsWith(github.ref, 'refs/tags/v') && matrix.os == 'ubuntu-latest'
-        run: npm run deploy
+      - uses: actions/upload-artifact@v4
+        with:
+          # Name of the artifact to upload.
+          # Optional. Default is 'artifact'
+          name: vscode-auto-collapse-explorer-${{ runner.os }}
+
+          # A file, directory or wildcard pattern that describes what to upload
+          # Required.
+          path: packageDist
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: vscode-auto-collapse-explorer-*
+      - run: npm create-package
+      - name: Create Release and Upload Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            package/*
         env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

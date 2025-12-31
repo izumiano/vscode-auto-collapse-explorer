@@ -4,7 +4,7 @@
   "description": "Auto-collapse explorer directories that are not currently in view.",
   "version": "1.0.4",
   "license": "MIT",
-  "publisher": "lukegeneva",
+  "publisher": "izumiano",
   "engines": {
     "vscode": "^1.107.0"
   },
@@ -17,7 +17,7 @@
   "main": "./dist/extension.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LukeGeneva/vscode-auto-collapse-explorer.git"
+    "url": "https://github.com/izumiano/vscode-auto-collapse-explorer.git"
   },
   "contributes": {
     "configuration": [
