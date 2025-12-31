@@ -38,11 +38,11 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           pattern: vscode-auto-collapse-explorer-*
-      - run: ls
+      - run: ls -F
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            package/*
+            package/vscode-auto-collapse-explorer-*/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
