@@ -2,7 +2,9 @@
   "name": "vscode-auto-collapse-explorer",
   "displayName": "Auto-Collapse Explorer",
   "description": "Auto-collapse explorer directories that are not currently in view.",
-  "version": "0.0.1",
+  "version": "1.0.4",
+  "license": "MIT",
+  "publisher": "lukegeneva",
   "engines": {
     "vscode": "^1.107.0"
   },
@@ -10,9 +12,38 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LukeGeneva/vscode-auto-collapse-explorer.git"
+  },
+  "contributes": {
+    "configuration": [
+      {
+        "title": "Auto-Collapse Explorer Settings",
+        "properties": {
+          "autoCollapseExplorer.active": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether auto-collapsing is enabled or not."
+          },
+          "autoCollapseExplorer.alwaysActiveOnStartup": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether auto-collapsing should always be set to active on startup."
+          }
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "autoCollapseExplorer.toggle-active",
+        "title": "Auto-Collapse Explorer: Toggle Active"
+      }
+    ]
+  },
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
@@ -20,6 +51,7 @@
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "create-package": "node scripts/package_setup.js && npx vsce package -o ./packageDist",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
@@ -28,15 +60,16 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.107.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "typescript-eslint": "^8.48.1",
-    "eslint": "^9.39.1",
+    "@types/vscode": "^1.107.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.7.1",
     "esbuild": "^0.27.1",
+    "eslint": "^9.39.1",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.48.1"
   }
 }
